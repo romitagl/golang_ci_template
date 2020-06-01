@@ -1,0 +1,34 @@
+name: CI Pipeline
+
+# https://help.github.com/en/actions/automating-your-workflow-with-github-actions/configuring-a-workflow
+
+on:
+  push:
+    branches: 
+      # https://help.github.com/en/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet
+      - master
+    paths:
+      # trigger pipeline only if source code changes
+      - 'src/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: CI Docker
+      shell: bash
+      run: |
+        echo running CI Docker
+        make ci_docker
+    - uses: actions/setup-go@v1
+      with:
+        go-version: 1.13
+    - name: Set up Go
+      shell: bash
+      run: |
+        echo Running Native CI
+        export PATH=$PATH:$(go env GOPATH)/bin # temporary fix. See https://github.com/actions/setup-go/issues/14
+        go get -u golang.org/x/lint/golint 
+        make ci
