@@ -1,0 +1,28 @@
+name: CD Pipeline
+
+on:
+  release:
+    types: [published]
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Publish Docker Image to the registry
+      shell: bash
+      env:
+        # default Github Actions token
+        # https://help.github.com/en/github/automating-your-workflow-with-github-actions/authenticating-with-the-github_token
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        DOCKER_IMAGE: docker.pkg.github.com/romitagl/golang_ci_template/go-app-container
+      run: |
+        VERSION=$(echo `cat ./VERSION`)
+        echo building Release Docker Image $VERSION
+        make build_docker
+        docker tag go-app-container:$VERSION $DOCKER_IMAGE:$VERSION
+        echo Push the image to GitHub Packages
+        docker login docker.pkg.github.com -u publisher -p "${{ secrets.GITHUB_TOKEN }}"
+        docker push $DOCKER_IMAGE:$VERSION
+        # docker push $DOCKER_IMAGE:latest
