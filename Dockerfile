@@ -11,7 +11,6 @@ RUN mkdir /app
 ADD . /app/
 WORKDIR /app 
 
-# run all mate targets => build test lint fmt cover
 RUN make $make_target
 
 # -- RELEASE STAGE --
