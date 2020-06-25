@@ -10,9 +10,9 @@ on:
     paths-ignore:
       # skip CI for documentation updates
       - '**.md'
-    paths:
-      # trigger pipeline only if source code changes
-      - 'src/**'
+    #paths:
+    #  # trigger pipeline only if source code changes
+    #  - 'src/**'
 jobs:
   build:
     runs-on: ubuntu-latest
