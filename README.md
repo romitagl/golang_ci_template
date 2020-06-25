@@ -21,14 +21,14 @@ Application currently supports:
   - `APP_LOG_TRACING_ON`: overrides *runtime:log-tracing* yaml param
 - Build version - from [VERSION](./VERSION) file
 
-CI currently supports:
+**CI** currently supports:
 - Building: `go build`
 - Testing: `go test`
 - Linting: `go vet`
 - Code Formatting: `go fmt`
 - Code Coverage: `go tool cover` - output report ./src/coverage.html
 
-CD currently supports:
+**CD** currently supports:
 - Publishing the Docker container (`go-app-container`) to [GitHub Packages](docker.pkg.github.com)
 
 # Structure

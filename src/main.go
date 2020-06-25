@@ -17,6 +17,11 @@ var (
 	buildTime  string // when the executable was built
 )
 
+func init() {
+	// initialize logging flags.
+	log.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds | log.Lshortfile | log.LUTC)
+}
+
 func main() {
 
 	// parse input flags
@@ -27,9 +32,6 @@ func main() {
 		fmt.Printf("version %s %s \n", versionNo, buildTime)
 		os.Exit(0)
 	}
-
-	// initialize logging flags.
-	log.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds | log.Lshortfile | log.LUTC)
 
 	log.Println("-- program started --")
 

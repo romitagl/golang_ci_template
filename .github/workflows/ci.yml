@@ -7,10 +7,12 @@ on:
     branches: 
       # https://help.github.com/en/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet
       - master
+    paths-ignore:
+      # skip CI for documentation updates
+      - '**.md'
     paths:
       # trigger pipeline only if source code changes
       - 'src/**'
-
 jobs:
   build:
     runs-on: ubuntu-latest
