@@ -13,8 +13,11 @@ import (
 var (
 	configFile = flag.String("config", "./config/config.yaml", "custom path to the yaml config file")
 	version    = flag.Bool("version", false, "print out the version number and build date of the program")
-	versionNo  string // version number of program (from VERSION file)
-	buildTime  string // when the executable was built
+	versionNo  string // version number of program
+	buildDate  string // when the executable was built
+	gitCommit  string // git commit hash
+	goos       string // operating system
+	goarch     string // architecture
 )
 
 func init() {
@@ -29,7 +32,7 @@ func main() {
 
 	// print version number and exit
 	if *version {
-		fmt.Printf("version %s %s \n", versionNo, buildTime)
+		fmt.Printf("version: %s\nbuildDate: %s\ngitCommit: %s\ngoos: %s\ngoarch: %s\n", versionNo, buildDate, gitCommit, goos, goarch)
 		os.Exit(0)
 	}
 

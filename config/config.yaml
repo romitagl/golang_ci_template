@@ -1,4 +1,4 @@
 runtime:
   log-tracing: true # enable log traces
   main-sleep: "24h" # duration main process will sleep for
-  custom-env: "$ENV_VAR_TO_REPLACE" # e.g. test/staging/production endpoint
+  custom-env: "" # e.g. test/staging/production endpoint
