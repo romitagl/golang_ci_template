@@ -18,11 +18,11 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         DOCKER_IMAGE: docker.pkg.github.com/romitagl/golang_ci_template/go-app-container
       run: |
-        VERSION=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+        VERSION=$(date -u +'%Y-%m-%dT%H-%M-%SZ')
         echo building Release Docker Image $VERSION
         make build_docker
         docker tag go-app-container:$VERSION $DOCKER_IMAGE:$VERSION
         # echo Push the image to GitHub Packages
-        # docker login docker.pkg.github.com -u publisher -p "${{ secrets.GITHUB_TOKEN }}"
-        # docker push $DOCKER_IMAGE:$VERSION
-        # docker push $DOCKER_IMAGE:latest
+        docker login docker.pkg.github.com -u publisher -p "${{ secrets.GITHUB_TOKEN }}"
+        docker push $DOCKER_IMAGE:$VERSION
+        docker push $DOCKER_IMAGE:latest
