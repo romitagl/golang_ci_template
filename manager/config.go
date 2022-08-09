@@ -1,7 +1,6 @@
 package manager
 
 import (
-	"io/ioutil"
 	"log"
 	"os"
 	"strconv"
@@ -46,15 +45,20 @@ func updateEnvConfig(config *Config) {
 
 // getYmlConfig - retrieve config from yaml file
 func (config *Config) getYmlConfig(filePath string) error {
-	yamlFile, err := ioutil.ReadFile(filePath)
+	yamlFile, err := os.Open(filePath)
 
 	if err != nil {
 		return err
 	}
+	defer yamlFile.Close()
 
-	err = yaml.Unmarshal(yamlFile, config)
-	if err != nil {
-		return err
+	// Decode YAML file to struct
+	if yamlFile != nil {
+		decoder := yaml.NewDecoder(yamlFile)
+		if err := decoder.Decode(&config); err != nil {
+			log.Println(err.Error())
+			return err
+		}
 	}
 
 	return nil

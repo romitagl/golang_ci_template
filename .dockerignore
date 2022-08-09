@@ -1,0 +1,9 @@
+.vscode
+.git
+.github
+**/*.md
+cover.out
+coverage.html
+Dockerfile
+LICENSE
+bin/
