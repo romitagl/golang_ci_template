@@ -20,6 +20,7 @@ jobs:
       run: |
         VERSION=$(git rev-parse HEAD)
         RELEASE_TAG="${{ github.ref }}"
+        RELEASE_TAG=$(echo $RELEASE_TAG | cut -d/ -f3)
         echo building Release Docker Image $VERSION $RELEASE_TAG
         make build_docker
         echo tagging tag go-app-container:$VERSION as $DOCKER_IMAGE:$RELEASE_TAG
